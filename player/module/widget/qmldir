@@ -1,0 +1,23 @@
+module widget
+Battery 1.0 Battery.qml
+ClockWidget 1.0 ClockWidget.qml
+Time 1.0 Time.qml
+Workspace 1.0 Workspace.qml
+Hyprshot 1.0 Hyprshot.qml
+HyprPicker 1.0 HyprPicker.qml
+SysTray 1.0 SysTray.qml
+Menu 1.0 Menu.qml
+Music 1.0 Music.qml
+Volume 1.0 Volume.qml
+Luminosite 1.0 Luminosite.qml
+Notification 1.0 Notification.qml
+Time 1.0 Time.qml
+Wallpaper 1.0 Wallpaper.qml
+NotificationButton 1.0 NotificationButton.qml
+
+CalendarView 1.0 CalendarView.qml
+CalendarWidget 1.0 CalendarWidget.qml
+WeekRow 1.0 WeekRow.qml
+GestionMusic 1.0 GestionMusic.qml
+Cava 1.0 Cava.qml
+ProgressionMusic 1.0 ProgressionMusic.qml

@@ -1,0 +1,2 @@
+# Quickshell
+my quickshell config
