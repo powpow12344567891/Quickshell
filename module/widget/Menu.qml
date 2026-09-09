@@ -41,7 +41,7 @@ MouseArea {
  width: 36; height: 30
 
     fillMode: Image.PreserveAspectFit
-    source: menu.containsMouse ?"../../img/elyLogo.svg" :  "../../img/elyLogo2.png" 
+    source: menu.containsMouse ?"../../img/elyLogo.svg" :  "../../img/elyLogo2.svg" 
     smooth: true
     antialiasing: true
     mipmap: true
