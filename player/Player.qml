@@ -5,7 +5,25 @@ import QtQuick
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import "./module/widget"
-PanelWindow {
+ShellRoot {
+    id: root
+    property bool panelVisible: true
+
+    IpcHandler {
+        target: "player"
+
+        function toggle(): void {
+            root.panelVisible = !musicRoot.panelVisible
+        }
+        function show(): void {
+            root.panelVisible = true
+        }
+        function hide(): void {
+            root.panelVisible = false
+        }
+    }
+    PanelWindow {
+  visible: root.panelVisible 
     color: "transparent"
     implicitWidth: 500
     implicitHeight: 200
@@ -20,12 +38,12 @@ PanelWindow {
         interval: 5000
         running: true
         repeat: false
-        onTriggered: Qt.quit()
+    onTriggered: root.panelVisible = false   // au lieu de Qt.quit()
       }       
 
     Rectangle {
 
-        id: root  
+        id: musicRoot  
         color: "transparent"
         implicitWidth: 500
         implicitHeight: 200
@@ -58,7 +76,7 @@ Text {
         
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: Qt.quit()
+           onClicked: root.panelVisible = false
     }
 }
         Process {
@@ -66,7 +84,7 @@ Text {
             command: ["playerctl", "metadata", "--format", "{{mpris:artUrl}}", "-F"]
             running: true
             stdout: SplitParser {
-                onRead: data => { root.artUrl = data.trim() }  // <-- use root.
+                onRead: data => { musicRoot.artUrl = data.trim() }  // <-- use musicRoot.
             }
         }
 
@@ -77,8 +95,8 @@ Text {
             stdout: SplitParser {
                 onRead: data => {
                     var parts = data.split("||")
-                    root.position = parts[0] || "0:00"  // <-- use root.
-                    root.length = parts[1] || "0:00"
+                    musicRoot.position = parts[0] || "0:00"  // <-- use musicRoot.
+                    musicRoot.length = parts[1] || "0:00"
                 }
             }
         }
@@ -90,8 +108,8 @@ Text {
             stdout: SplitParser {
                 onRead: data => {
                     var parts = data.split("||")
-                    root.trackArtist = parts[0] || ""  // <-- use root.
-                    root.trackTitle = parts[1] || "Rien en cours"
+                    musicRoot.trackArtist = parts[0] || ""  // <-- use musicRoot.
+                    musicRoot.trackTitle = parts[1] || "Rien en cours"
                 }
             }
         }
@@ -101,7 +119,7 @@ Text {
             command: ["playerctl", "status", "-F"]
             running: true
             stdout: SplitParser {
-                onRead: data => { root.playbackStatus = data.trim() } 
+                onRead: data => { musicRoot.playbackStatus = data.trim() } 
             }
         }
 
@@ -133,8 +151,8 @@ Text {
                     anchors.fill: parent
                     anchors.margins: 6
                     fillMode: Image.PreserveAspectCrop
-                    source: root.artUrl
-                    visible: root.artUrl !== ""
+                    source: musicRoot.artUrl
+                    visible: musicRoot.artUrl !== ""
                     layer.enabled: true
                     layer.effect: OpacityMask {
                         maskSource: mask
@@ -154,7 +172,7 @@ Text {
                     text: "♪"
                     font.pixelSize: 36
                     color: "#efd9ce"
-                    visible: root.artUrl === ""
+                    visible: musicRoot.artUrl === ""
                 }
               }
               Rectangle {
@@ -171,7 +189,7 @@ Text {
 
                     Text {
                         Layout.alignment: Qt.AlignHCenter
-                        text: root.trackTitle
+                        text: musicRoot.trackTitle
                         color: "#efd9ce"
                         font.pixelSize: 20
                         font.family : "Departure Mono"
@@ -182,7 +200,7 @@ Text {
 
                     Text {
                         Layout.alignment: Qt.AlignHCenter
-                        text: root.trackArtist
+                        text: musicRoot.trackArtist
                         color: "#aaaaaa"
                         font.pixelSize: 11
                         font.family : "Departure Mono"
@@ -193,7 +211,7 @@ Text {
 
                     Text {
                         Layout.alignment: Qt.AlignHCenter
-                        text: root.position + " / " + root.length
+                        text: musicRoot.position + " / " + musicRoot.length
                         color: "#aaaaaa"
                         font.family : "Departure Mono"
                         font.pixelSize: 11
@@ -219,7 +237,7 @@ Text {
                         }
 
                         Text {
-                            text: root.playbackStatus === "Playing" ? "󰏤" : "󰐊"
+                            text: musicRoot.playbackStatus === "Playing" ? "󰏤" : "󰐊"
                             font.pixelSize: 36
                             color: playMouse.containsMouse ? "#00CC12" : "#888888"
                             Behavior on color { ColorAnimation { duration: 150 } }
@@ -271,4 +289,5 @@ Text {
                 }            }
         }
     }
+  }
 }
