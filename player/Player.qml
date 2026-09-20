@@ -5,25 +5,10 @@ import QtQuick
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import "./module/widget"
-ShellRoot {
-    id: root
-    property bool panelVisible: true
 
-    IpcHandler {
-        target: "player"
-
-        function toggle(): void {
-            root.panelVisible = !musicRoot.panelVisible
-        }
-        function show(): void {
-            root.panelVisible = true
-        }
-        function hide(): void {
-            root.panelVisible = false
-        }
-    }
     PanelWindow {
-  visible: root.panelVisible 
+   property bool panelVisible: false
+    visible: panelVisible
     color: "transparent"
     implicitWidth: 500
     implicitHeight: 200
@@ -290,4 +275,4 @@ Text {
         }
     }
   }
-}
+

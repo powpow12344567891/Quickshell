@@ -1,15 +1,16 @@
 import Quickshell
 import QtQuick
+import Quickshell.Io
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Services.Pipewire
 import "../widget"
 
 PanelWindow {
-    id: mainPanel
+  id: mainPanel
+   property bool panelVisible: false
+    visible: panelVisible
     property int currentTab: 0
-    property bool isOpen: false
-    visible: isOpen
     exclusionMode: ExclusionMode.Ignore
     anchors { top: true }
     margins { top: 80 }

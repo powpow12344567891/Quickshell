@@ -57,7 +57,7 @@ Scope {
    anchors.centerIn: parent
 
             spacing: 10
-        Menu {      onMenuClicked: togglepanel()   }
+        Menu {      onMenuClicked: togglePanel()   }
   
  GestionMusic {}
   Cava {
