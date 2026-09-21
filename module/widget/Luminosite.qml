@@ -10,6 +10,8 @@ ColumnLayout {
 
     property real brightness: 0.5
 
+
+
     // Lit la luminosité au démarrage
     Process {
         id: getProc
@@ -60,7 +62,10 @@ ColumnLayout {
         value: brightness
  height: 120
     width: 28
-
+    onMoved: {
+        brightness = value
+        setProc.running = true
+    }
     background: Rectangle {
         x: parent.leftPadding + parent.availableWidth / 2 - width / 2
         y: parent.topPadding
