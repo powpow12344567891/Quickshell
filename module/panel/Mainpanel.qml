@@ -7,6 +7,7 @@ import Quickshell.Services.Pipewire
 import "../widget"
 
 PanelWindow {
+
   id: mainPanel
    property bool panelVisible: false
     visible: panelVisible
@@ -20,18 +21,18 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#11120f"
-        radius: 2
-      border.color: "#00CC12"
-            border.width: 1
+        color: "#331a1a1a"  
+        border.color: "#00CC12"
+        border.width: 1
+        radius: 20
+    
         ColumnLayout {
             anchors {
                 fill: parent
                 margins: 10
             }
             spacing: 8
-
-   
+  
 
             // Onglet 0 : Main
             RowLayout {
@@ -63,7 +64,6 @@ PanelWindow {
     playing: true
     width: 200      
     height: 200
-
   }      
 
     }
@@ -72,6 +72,6 @@ PanelWindow {
 
  // Onglet 2
 
-        }
+        }}
     }
-}
+
